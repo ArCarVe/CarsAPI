@@ -31,8 +31,8 @@ public class BrandRestController {
 
    @DeleteMapping("/brands/{brandId}")
    public ResponseEntity<Void> deleteBrand(@PathVariable Long brandId){
-       Brand postToDelete = brandService.getBrandRepository().findByBrandId(brandId);
-       brandService.deleteBrand(postToDelete);
+       Brand brandToDelete = brandService.getBrandRepository().findByBrandId(brandId);
+       brandService.deleteBrand(brandToDelete);
 
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
    }

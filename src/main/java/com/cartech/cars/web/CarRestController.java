@@ -1,7 +1,9 @@
 package com.cartech.cars.web;
 
 import com.cartech.cars.business.CarService;
+import com.cartech.cars.business.BrandService;
 import com.cartech.cars.data.entity.Car;
+import com.cartech.cars.data.entity.Brand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +14,20 @@ import java.util.List;
 public class CarRestController {
 
     private final CarService carService;
+    private final BrandService brandService;
 
 
-    public CarRestController(CarService carService) {
+    public CarRestController(CarService carService, BrandService brandService) {
         this.carService = carService;
+        this.brandService = brandService;
     }
 
-    @PostMapping("/cars")
-    public ResponseEntity<Car> createCar(@RequestBody Car car){
+    @PostMapping("/brand/{brandId}/cars")
+    public ResponseEntity<Car> createCar(@PathVariable(value = "brandId") Long brandId, @RequestBody Car car){
+
+        Brand brand = brandService.getBrandRepository().findByBrandId(brandId);
+        car.setBrand(brand);
+
         carService.saveCar(car);
         return new ResponseEntity<>(car,HttpStatus.CREATED);
     }
