@@ -12,6 +12,8 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - cars-api
 
   db:
     image: postgres
@@ -26,3 +28,23 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - cars-api
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./pgadmin:/root/.pgadmin
+    ports:
+      - "8765:80"
+    depends_on:
+      - db
+    networks:
+      - cars-api
+
+networks:
+  cars-api:
+    driver: bridge

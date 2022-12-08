@@ -1,8 +1,11 @@
 package com.cartech.cars.data.entity;
 
+import com.cartech.cars.data.entity.Car;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Table(name = "brand")
@@ -15,6 +18,17 @@ public class Brand {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "brand")
+    private List<Car> cars;
+
+    
+    public Brand() {}
+
+    public Brand(String name) {
+        this.name = name;
+    }
+
 
     public Long getbrandId() {
         return brandId;
@@ -30,6 +44,10 @@ public class Brand {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 
 }
