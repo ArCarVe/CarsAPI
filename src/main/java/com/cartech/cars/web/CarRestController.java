@@ -29,13 +29,13 @@ public class CarRestController {
         return new ResponseEntity<>(carService.getAllCars(), HttpStatus.OK);
     }
 
-//    @DeleteMapping("/posts/{postId}")
-//    public ResponseEntity<Void> deletePost(@PathVariable Long postId){
-//        Post postToDelete = carService.getPostRepository().findByPostId(postId);
-//        carService.deletePost(postToDelete);
-//
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+   @DeleteMapping("/cars/{carId}")
+   public ResponseEntity<Void> deleteCar(@PathVariable Long carId){
+       Post carToDelete = carService.getCarRepository().findByCarId(carId);
+       carService.deleteCar(carToDelete);
+
+       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+   }
 
 
 }
