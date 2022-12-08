@@ -31,7 +31,7 @@ public class CarRestController {
 
    @DeleteMapping("/cars/{carId}")
    public ResponseEntity<Void> deleteCar(@PathVariable Long carId){
-       Post carToDelete = carService.getCarRepository().findByCarId(carId);
+       Car carToDelete = carService.getCarRepository().findByCarId(carId);
        carService.deleteCar(carToDelete);
 
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
