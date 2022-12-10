@@ -1,6 +1,6 @@
 package com.cartech.cars.data.entity;
 
-import com.cartech.cars.data.entity.Brand;
+import com.cartech.cars.data.entity.Generation;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -13,23 +13,33 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carId;
 
-    @NotNull
-    @Column(name = "model", nullable = false)
-    private String model;
+    @Column(name = "start_production_year")
+    private int startProductionYear;
 
-    @Column(name = "year")
-    private int year;
+    @Column(name = "end_production_year")
+    private int endProductionYear;
+
+    @Column(name = "seats")
+    private int seats;
+
+    @Column(name = "doors")
+    private int doors;
+
+    @Column(name = "modification")
+    private String modification;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+    @JoinColumn(name = "generation_id")
+    private Generation generation;
 
     public Car() {}
 
-    public Car(Long carId, String model, int year) {
-        this.carId = carId;
-        this.model = model;
-        this.year = year;
+    public Car(int startProductionYear, int endProductionYear, int seats, int doors, String modification) {
+        this.startProductionYear = startProductionYear;
+        this.endProductionYear = endProductionYear;
+        this.seats = seats;
+        this.doors = doors;
+        this.modification = modification;
     }
 
     public Long getCarId() {
@@ -40,27 +50,51 @@ public class Car {
         this.carId = carId;
     }
 
-    public String getModel() {
-        return model;
+    public String getModification() {
+        return modification;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setModification(String modification) {
+        this.modification = modification;
     }
 
-    public int getYear() {
-        return year;
+    public int getStartProductionYear() {
+        return startProductionYear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setStartProductionYear(int startProductionYear) {
+        this.startProductionYear = startProductionYear;
     }
 
-    public Brand getBrand() {
-        return brand;
+    public int getEndProductionYear() {
+        return endProductionYear;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
+    public void setEndProductionYear(int endProductionYear) {
+        this.endProductionYear = endProductionYear;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public void setSeats(int seats) {
+        this.seats = seats;
+    }
+
+    public int getDoors() {
+        return doors;
+    }
+
+    public void setDoors(int doors) {
+        this.doors = doors;
+    }
+
+    public Generation getGeneration() {
+        return generation;
+    }
+
+    public void setGeneration(Generation generation) {
+        this.generation = generation;
     }
 }

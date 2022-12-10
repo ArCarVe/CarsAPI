@@ -1,8 +1,10 @@
 package com.cartech.cars.web;
 
 import com.cartech.cars.business.CarService;
-import com.cartech.cars.business.BrandService;
+import com.cartech.cars.business.GenerationService;
 import com.cartech.cars.data.entity.Car;
+import com.cartech.cars.data.entity.Generation;
+import com.cartech.cars.data.entity.Model;
 import com.cartech.cars.data.entity.Brand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +16,23 @@ import java.util.List;
 public class CarRestController {
 
     private final CarService carService;
-    private final BrandService brandService;
+    private final GenerationService generationService;
 
 
-    public CarRestController(CarService carService, BrandService brandService) {
+    public CarRestController(
+        CarService carService, 
+        GenerationService generationService) 
+    {
         this.carService = carService;
-        this.brandService = brandService;
+        this.generationService = generationService;
     }
 
-    @PostMapping("/brand/{brandId}/cars")
-    public ResponseEntity<Car> createCar(@PathVariable(value = "brandId") Long brandId, @RequestBody Car car){
-
-        Brand brand = brandService.getBrandRepository().findByBrandId(brandId);
-        car.setBrand(brand);
-
+    @PostMapping("/generation/{generationId}/cars")
+    public ResponseEntity<Car> createCar(@PathVariable(value = "generationId") Long generationId, @RequestBody Car car){
+        Generation generation = generationService.getGenerationRepository().findByGenerationId(generationId);
+        
+        car.setGeneration(generation);
+        
         carService.saveCar(car);
         return new ResponseEntity<>(car,HttpStatus.CREATED);
     }

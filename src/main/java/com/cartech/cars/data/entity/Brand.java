@@ -1,6 +1,6 @@
 package com.cartech.cars.data.entity;
 
-import com.cartech.cars.data.entity.Car;
+import com.cartech.cars.data.entity.Model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -20,7 +20,7 @@ public class Brand {
     private String name;
 
     @OneToMany(mappedBy = "brand")
-    private List<Car> cars;
+    private List<Model> models;
 
     
     public Brand() {}
@@ -46,8 +46,8 @@ public class Brand {
         this.name = name;
     }
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
+    public void setModels(List<Model> models) {
+        this.models = models;
     }
 
 }
