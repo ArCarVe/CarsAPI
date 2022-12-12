@@ -25,6 +25,12 @@ public class Car {
     @Column(name = "doors")
     private int doors;
 
+    @Column(name = "hp")
+    private int hp;
+
+    @Column(name = "is_automatic")
+    private Boolean isAutomatic;
+
     @Column(name = "modification")
     private String modification;
 
@@ -34,11 +40,13 @@ public class Car {
 
     public Car() {}
 
-    public Car(int startProductionYear, int endProductionYear, int seats, int doors, String modification) {
+    public Car(int startProductionYear, int endProductionYear, int seats, int doors, int hp, Boolean isAutomatic, String modification) {
         this.startProductionYear = startProductionYear;
         this.endProductionYear = endProductionYear;
+        this.hp = hp;
         this.seats = seats;
         this.doors = doors;
+        this.isAutomatic = isAutomatic;
         this.modification = modification;
     }
 
@@ -74,6 +82,14 @@ public class Car {
         this.endProductionYear = endProductionYear;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
     public int getSeats() {
         return seats;
     }
@@ -88,6 +104,14 @@ public class Car {
 
     public void setDoors(int doors) {
         this.doors = doors;
+    }
+
+    public Boolean getIsAutomatic() {
+        return isAutomatic;
+    }
+
+    public void setIsAutomatic(Boolean isAutomatic) {
+        this.isAutomatic = isAutomatic;
     }
 
     public Generation getGeneration() {
