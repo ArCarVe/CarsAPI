@@ -16,6 +16,14 @@ public class BrandService {
         this.brandRepository = brandRepository;
     }
 
+    public Brand getBrandById(Long brandId) {
+        return getBrandRepository().findByBrandId(brandId);
+    }
+
+    public Brand getBrandByName(String name) {
+        return getBrandRepository().findByName(name);
+    }
+
     public void saveBrand(Brand brand){
         getBrandRepository().save(brand);
     }
