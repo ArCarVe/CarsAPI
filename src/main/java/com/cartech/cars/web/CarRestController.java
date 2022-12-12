@@ -19,10 +19,7 @@ public class CarRestController {
     private final GenerationService generationService;
 
 
-    public CarRestController(
-        CarService carService, 
-        GenerationService generationService) 
-    {
+    public CarRestController(CarService carService, GenerationService generationService) {
         this.carService = carService;
         this.generationService = generationService;
     }
@@ -34,7 +31,7 @@ public class CarRestController {
         car.setGeneration(generation);
         
         carService.saveCar(car);
-        return new ResponseEntity<>(car,HttpStatus.CREATED);
+        return new ResponseEntity<>(car, HttpStatus.CREATED);
     }
 
     @GetMapping("/cars")
@@ -42,13 +39,13 @@ public class CarRestController {
         return new ResponseEntity<>(carService.getAllCars(), HttpStatus.OK);
     }
 
-   @DeleteMapping("/cars/{carId}")
-   public ResponseEntity<Void> deleteCar(@PathVariable Long carId){
-       Car carToDelete = carService.getCarRepository().findByCarId(carId);
-       carService.deleteCar(carToDelete);
+    @DeleteMapping("/cars/{carId}")
+    public ResponseEntity<Void> deleteCar(@PathVariable Long carId){
+        Car carToDelete = carService.getCarRepository().findByCarId(carId);
+        carService.deleteCar(carToDelete);
 
-       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-   }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 }
