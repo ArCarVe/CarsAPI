@@ -16,6 +16,14 @@ public class GenerationService {
         this.generationRepository = generationRepository;
     }
 
+    public Generation getGenerationById(Long generationId) {
+        return getGenerationRepository().findByGenerationId(generationId);
+    }
+
+    public Generation getGenerationByName(String name) {
+        return getGenerationRepository().findByName(name);
+    }
+
     public void saveGeneration(Generation generation){
         getGenerationRepository().save(generation);
     }
