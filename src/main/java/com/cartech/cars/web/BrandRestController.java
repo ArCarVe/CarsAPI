@@ -19,9 +19,17 @@ public class BrandRestController {
     }
 
     @PostMapping("/brands")
-    public ResponseEntity<Brand> createBrand(@RequestBody Brand car){
-        brandService.saveBrand(car);
-        return new ResponseEntity<>(car,HttpStatus.CREATED);
+    public ResponseEntity<Brand> createBrand(@RequestBody Brand brand) {
+        Brand brandDB = brandService.getBrandByName(brand.getName());
+        if (brandDB != null) {
+            return new ResponseEntity<>(brandDB, HttpStatus.CONFLICT);
+        }
+        try {
+            brandService.saveBrand(brand);
+        } catch (Exception e) {
+            return new ResponseEntity<>(brand, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(brand, HttpStatus.CREATED);
     }
 
     @GetMapping("/brands")
@@ -29,13 +37,12 @@ public class BrandRestController {
         return new ResponseEntity<>(brandService.getAllBrands(), HttpStatus.OK);
     }
 
-   @DeleteMapping("/brands/{brandId}")
-   public ResponseEntity<Void> deleteBrand(@PathVariable Long brandId){
-       Brand brandToDelete = brandService.getBrandRepository().findByBrandId(brandId);
-       brandService.deleteBrand(brandToDelete);
+    @DeleteMapping("/brands/{brandId}")
+    public ResponseEntity<Void> deleteBrand(@PathVariable Long brandId) {
+        Brand brandToDelete = brandService.getBrandById(brandId);
+        brandService.deleteBrand(brandToDelete);
 
-       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-   }
-
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }
