@@ -10,6 +10,7 @@ import java.util.List;
 public interface GenerationRepository extends JpaRepository<Generation, Long> {
 
     Generation findByGenerationId(Long carId);
+    Generation findByName(String name);
     @Override
     List<Generation> findAll();
 

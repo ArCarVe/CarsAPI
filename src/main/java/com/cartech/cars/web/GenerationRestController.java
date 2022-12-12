@@ -24,11 +24,20 @@ public class GenerationRestController {
 
     @PostMapping("/model/{modelId}/generations")
     public ResponseEntity<Generation> createGeneration(@PathVariable(value = "modelId") Long modelId, @RequestBody Generation generation){
-        Model model = modelService.getModelRepository().findByModelId(modelId);
+        Generation generationDB = generationService.getGenerationByName(generation.getName());
+        if (generationDB != null) {
+            return new ResponseEntity<>(generation, HttpStatus.CONFLICT);
+        }
+        try {
+            Model model = modelService.getModelById(modelId);
         
-        generation.setModel(model);
-        generationService.saveGeneration(generation);
-        return new ResponseEntity<>(generation,HttpStatus.CREATED);
+            generation.setModel(model);
+            generationService.saveGeneration(generation);
+        } catch (Exception e) {
+            return new ResponseEntity<>(generation, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+        return new ResponseEntity<>(generation, HttpStatus.CREATED);
     }
 
     @GetMapping("/generations")
@@ -36,13 +45,13 @@ public class GenerationRestController {
         return new ResponseEntity<>(generationService.getAllGenerations(), HttpStatus.OK);
     }
 
-   @DeleteMapping("/generations/{generationId}")
-   public ResponseEntity<Void> deleteGeneration(@PathVariable Long generationId){
-       Generation generationToDelete = generationService.getGenerationRepository().findByGenerationId(generationId);
-       generationService.deleteGeneration(generationToDelete);
+    @DeleteMapping("/generations/{generationId}")
+    public ResponseEntity<Void> deleteGeneration(@PathVariable Long generationId){
+        Generation generationToDelete = generationService.getGenerationById(generationId);
+        generationService.deleteGeneration(generationToDelete);
 
-       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-   }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 }
