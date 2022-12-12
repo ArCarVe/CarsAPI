@@ -10,6 +10,7 @@ import java.util.List;
 public interface ModelRepository extends JpaRepository<Model, Long> {
 
     Model findByModelId(Long carId);
+    Model findByName(String name);
     @Override
     List<Model> findAll();
 

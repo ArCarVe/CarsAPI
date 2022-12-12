@@ -23,25 +23,32 @@ public class ModelRestController {
 
     @PostMapping("/brand/{brandId}/models")
     public ResponseEntity<Model> createModel(@PathVariable(value = "brandId") Long brandId, @RequestBody Model model){
-        Brand brand = brandService.getBrandRepository().findByBrandId(brandId);
+        Model modelDB = modelService.getModelByName(model.getName());
+        if (modelDB != null) {
+            return new ResponseEntity<>(modelDB, HttpStatus.CONFLICT);
+        }
+        try {
+            Brand brand = brandService.getBrandById(brandId);
         
-        model.setBrand(brand);
-        modelService.saveModel(model);
-        return new ResponseEntity<>(model,HttpStatus.CREATED);
+            model.setBrand(brand);
+            modelService.saveModel(model);
+        } catch (Exception e) {
+            return new ResponseEntity<>(model, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(model, HttpStatus.CREATED);
     }
 
     @GetMapping("/models")
-    public ResponseEntity<List<Model>> getAllModels(){
+    public ResponseEntity<List<Model>> getAllModels() {
         return new ResponseEntity<>(modelService.getAllModels(), HttpStatus.OK);
     }
 
-   @DeleteMapping("/models/{modelId}")
-   public ResponseEntity<Void> deleteModel(@PathVariable Long modelId){
-       Model modelToDelete = modelService.getModelRepository().findByModelId(modelId);
-       modelService.deleteModel(modelToDelete);
+    @DeleteMapping("/models/{modelId}")
+    public ResponseEntity<Void> deleteModel(@PathVariable Long modelId) {
+        Model modelToDelete = modelService.getModelById(modelId);
+        modelService.deleteModel(modelToDelete);
 
-       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-   }
-
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

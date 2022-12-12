@@ -16,6 +16,15 @@ public class ModelService {
         this.modelRepository = modelRepository;
     }
 
+
+    public Model getModelById(Long modelId) {
+        return getModelRepository().findByModelId(modelId);
+    }
+
+    public Model getModelByName(String name) {
+        return getModelRepository().findByName(name);
+    }
+
     public void saveModel(Model model){
         getModelRepository().save(model);
     }
