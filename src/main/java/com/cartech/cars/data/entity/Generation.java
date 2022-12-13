@@ -35,11 +35,6 @@ public class Generation {
     
     public Generation() {}
 
-    public Generation(int startProductionYear, String name) {
-        this.startProductionYear = startProductionYear;
-        this.name = name;
-    }
-
     public Generation(int startProductionYear, int endProductionYear, String name) {
         this.startProductionYear = startProductionYear;
         this.endProductionYear = endProductionYear;
