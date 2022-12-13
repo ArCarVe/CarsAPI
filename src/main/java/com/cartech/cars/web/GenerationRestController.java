@@ -26,7 +26,7 @@ public class GenerationRestController {
     public ResponseEntity<Generation> createGeneration(@PathVariable(value = "modelId") Long modelId, @RequestBody Generation generation){
         Generation generationDB = generationService.getGenerationByName(generation.getName());
         if (generationDB != null) {
-            return new ResponseEntity<>(generation, HttpStatus.CONFLICT);
+            return new ResponseEntity<>(generationDB, HttpStatus.CONFLICT);
         }
         try {
             Model model = modelService.getModelById(modelId);
