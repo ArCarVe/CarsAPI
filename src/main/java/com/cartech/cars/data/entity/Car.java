@@ -13,12 +13,6 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carId;
 
-    @Column(name = "start_production_year")
-    private int startProductionYear;
-
-    @Column(name = "end_production_year")
-    private int endProductionYear;
-
     @Column(name = "seats")
     private int seats;
 
@@ -40,9 +34,7 @@ public class Car {
 
     public Car() {}
 
-    public Car(int startProductionYear, int endProductionYear, int seats, int doors, int hp, Boolean isAutomatic, String modification) {
-        this.startProductionYear = startProductionYear;
-        this.endProductionYear = endProductionYear;
+    public Car(int seats, int doors, int hp, Boolean isAutomatic, String modification) {
         this.hp = hp;
         this.seats = seats;
         this.doors = doors;
@@ -64,22 +56,6 @@ public class Car {
 
     public void setModification(String modification) {
         this.modification = modification;
-    }
-
-    public int getStartProductionYear() {
-        return startProductionYear;
-    }
-
-    public void setStartProductionYear(int startProductionYear) {
-        this.startProductionYear = startProductionYear;
-    }
-
-    public int getEndProductionYear() {
-        return endProductionYear;
-    }
-
-    public void setEndProductionYear(int endProductionYear) {
-        this.endProductionYear = endProductionYear;
     }
 
     public int getHp() {

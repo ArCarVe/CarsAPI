@@ -19,6 +19,12 @@ public class Generation {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "start_production_year")
+    private int startProductionYear;
+
+    @Column(name = "end_production_year")
+    private int endProductionYear;
+
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
@@ -29,7 +35,14 @@ public class Generation {
     
     public Generation() {}
 
-    public Generation(String name) {
+    public Generation(int startProductionYear, String name) {
+        this.startProductionYear = startProductionYear;
+        this.name = name;
+    }
+
+    public Generation(int startProductionYear, int endProductionYear, String name) {
+        this.startProductionYear = startProductionYear;
+        this.endProductionYear = endProductionYear;
         this.name = name;
     }
 
@@ -44,6 +57,22 @@ public class Generation {
 
     public String getName() {
         return name;
+    }
+
+    public int getStartProductionYear() {
+        return startProductionYear;
+    }
+
+    public void setStartProductionYear(int startProductionYear) {
+        this.startProductionYear = startProductionYear;
+    }
+
+    public int getEndProductionYear() {
+        return endProductionYear;
+    }
+
+    public void setEndProductionYear(int endProductionYear) {
+        this.endProductionYear = endProductionYear;
     }
 
     public Model getModel() {
